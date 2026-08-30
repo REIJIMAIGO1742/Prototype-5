@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8055258003137587325}
   - component: {fileID: 4011024965635716726}
   - component: {fileID: 5383648182245160660}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Good1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,6 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2981e95170b71d041bd25e48ed3bd457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
+  explotionParticle: {fileID: 5112437202714306363, guid: 7b4191607aae74c0ab244a8d6e48adbf, type: 3}
+  pointValue: 2
 --- !u!54 &4011024965635716726
 Rigidbody:
   m_ObjectHideFlags: 0

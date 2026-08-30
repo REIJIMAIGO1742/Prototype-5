@@ -4,18 +4,23 @@ using UnityEngine.InputSystem;
 public class Target : MonoBehaviour
 {
     private Rigidbody targetRb;
+    private Gamemanager gameManager;
+    public ParticleSystem explotionParticle;
 
     private float minSpeed = 12;
     private float maxSpeed = 16;
-    private float maxTorqur = 10;
+    private float maxTorqur = 2;
     private float xRanage = 4;
     private float ySpawnPos = -6;
+    public int pointValue;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         targetRb = GetComponent<Rigidbody>();
+        gameManager = GameObject.Find("Game Manager").GetComponent<Gamemanager>();
         targetRb.AddForce(RandomForce(),ForceMode.Impulse);
         targetRb.AddTorque(RadomTorqur(), RadomTorqur(), RadomTorqur(), ForceMode.Impulse);
         transform.position = RandomSpawnPos();
@@ -34,6 +39,8 @@ public class Target : MonoBehaviour
                 // If ray hit this enemy, deastroy it
                 if (hit.transform == transform)
                 {
+                    Instantiate(explotionParticle,transform.position,explotionParticle.transform.rotation);
+                    gameManager.UpdateScore(pointValue);
                     Destroy(gameObject);
                 }
             }
