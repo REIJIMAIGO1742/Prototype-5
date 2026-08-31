@@ -29,24 +29,28 @@ public class Target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (gameManager.isGameActive)
         {
-            Debug.Log("Mouse Was clicked");
-            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 2f);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Mouse.current.leftButton.wasPressedThisFrame)
             {
-                // If ray hit this enemy, deastroy it
-                if (hit.transform == transform)
+                Debug.Log("Mouse Was clicked");
+                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 2f);
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    Instantiate(explotionParticle,transform.position,explotionParticle.transform.rotation);
-                    gameManager.UpdateScore(pointValue);
-                    Destroy(gameObject);
+                    // If ray hit this enemy, deastroy it
+                    if (hit.transform == transform)
+                    {
+                        Instantiate(explotionParticle, transform.position, explotionParticle.transform.rotation);
+                        gameManager.UpdateScore(pointValue);
+                        Destroy(gameObject);
+                    }
                 }
+
+
             }
-
-
         }
+       
     }
 
     Vector3 RandomForce()
@@ -66,9 +70,10 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("DestroyZone"))
+        if (other.CompareTag("DestroyZone") && !gameObject.CompareTag("Bad"))
         {
             Destroy(gameObject);
+            gameManager.GameOver();
         }
     }
 
